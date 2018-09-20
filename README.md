@@ -19,7 +19,7 @@ I love serverless compute concepts like Google's cloud functions and AWS's Lamda
 * The container is started with an entrypoint of `magicland.init`
 * Magicland init has an overlay of `/App` with the cloned repo
 * Magicland init does `yarn install` if `package.json` is present
-* Magicland init then executes `node run magicland.js`
+* Magicland init then executes `node magicland.js`
 * An ExpressJS instance is drawn with a single route with `index.js.handle` as the handler
 * A service entry is created in NGinx for the Magicland DNS (the customer CNAME) listening on the service port
 * The HTTP request is sent to the service entry
