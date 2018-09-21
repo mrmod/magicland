@@ -5,7 +5,7 @@ import (
 )
 
 func clone(serviceName string, cloneOptions *git.CloneOptions) error {
-	repository, err := git.PlainClone("/tmp/"+serviceName+"/stage", true, cloneOptions)
+	repository, err := git.PlainClone("/tmp/"+serviceName+"/stage", false, cloneOptions)
 	_ = repository
 	if err != nil {
 		return err

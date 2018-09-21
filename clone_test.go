@@ -14,7 +14,6 @@ func init() {
 		println(err)
 	} else {
 		if s.IsDir() {
-			println("Removing existing clone")
 			os.RemoveAll("/tmp/" + serviceName)
 		}
 	}
@@ -26,7 +25,6 @@ func init() {
 		serviceName)
 }
 func TestPublicClone(t *testing.T) {
-	t.Log("It should clone a public repository")
 	if err := PublicClone(publicGitConfig); err != nil {
 		t.Fatalf("Expected to clone %s but failed %v", publicGitConfig.RepositoryURL, err)
 	}
