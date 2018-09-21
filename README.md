@@ -41,3 +41,7 @@ Mesos, ECS, Kubernoodle-salad; all fine at scheduling services. This is a "for f
 `go test -v`
 
 It sounds like "goatest Vee" if you wing it at the right velocity.
+
+## Why Go?
+
+"Where are the channels and goroutines and concurrency?". Your butt. Next question.
