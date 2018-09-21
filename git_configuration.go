@@ -19,6 +19,10 @@ func NewGitConfiguration(user, branch, url, service string) GitConfiguration {
 	}
 }
 
+func (this GitConfiguration) servicePath() string {
+	return "/tmp/" + this.ServiceName + "/stage/"
+}
+
 // AsRedisHashMap Convert to a storable datastructure
 func (this GitConfiguration) AsRedisHashMap() map[string]interface{} {
 	return map[string]interface{}{
