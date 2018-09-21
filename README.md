@@ -26,6 +26,16 @@ I love serverless compute concepts like Google's cloud functions and AWS's Lamda
 
 There's probably a detail I didn't write yet. It'll be there. This is for fun.
 
+## Scheduling
+
+Mesos, ECS, Kubernoodle-salad; all fine at scheduling services. This is a "for fun" "not real life" project, so the scheduling is going to be crude and filled with bad assumptions. 
+
+### Constraints
+
+* Must be free/nearly free (eg: EC2 T1-micro)
+* Must work in the development environment with only Docker and an internet connection
+* Must consider Memory saturated when 96 MB remain on a system (62 MB + WTF space)
+
 ## Testing
 
 `go test -v`
