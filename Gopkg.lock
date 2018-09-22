@@ -8,12 +8,6 @@
   version = "v0.4.11"
 
 [[projects]]
-  name = "github.com/Sirupsen/logrus"
-  packages = ["."]
-  revision = "3e01752db0189b9157070a0e1668a620f9a85da2"
-  version = "v1.0.6"
-
-[[projects]]
   name = "github.com/aws/aws-sdk-go"
   packages = [
     "aws",
@@ -61,7 +55,6 @@
 [[projects]]
   name = "github.com/docker/docker"
   packages = [
-    "api",
     "api/types",
     "api/types/blkiodev",
     "api/types/container",
@@ -77,9 +70,6 @@
     "api/types/versions",
     "api/types/volume",
     "client",
-    "pkg/ioutils",
-    "pkg/longpath",
-    "pkg/system",
     "pkg/tlsconfig"
   ]
   revision = "092cba3727bb9b4a2f0e922cd6c0f93ea270e363"
@@ -100,12 +90,6 @@
   packages = ["."]
   revision = "47565b4f722fb6ceae66b95f853feed578a4a51c"
   version = "v0.3.3"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/docker/libtrust"
-  packages = ["."]
-  revision = "aabc10ec26b754e797f9028f4589c5b7bd90dc20"
 
 [[projects]]
   name = "github.com/emirpasic/gods"
@@ -218,8 +202,7 @@
     "poly1305",
     "ssh",
     "ssh/agent",
-    "ssh/knownhosts",
-    "ssh/terminal"
+    "ssh/knownhosts"
   ]
   revision = "0e37d006457bf46f9e6692014ba72ef82c33022c"
 
@@ -237,10 +220,7 @@
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
-  packages = [
-    "unix",
-    "windows"
-  ]
+  packages = ["windows"]
   revision = "d641721ec2dead6fe5ca284096fe4b1fcd49e427"
 
 [[projects]]
@@ -324,6 +304,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "4fccee13bfdc6de18261f12d90fd1c467025a0607eecf69f97899235d7df418e"
+  inputs-digest = "0a54b1d18e83cd60d076afa81522ccca97f756b5ebe3ce2bb2caeaedd0c0045c"
   solver-name = "gps-cdcl"
   solver-version = 1
