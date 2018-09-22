@@ -44,4 +44,5 @@ It sounds like "goatest Vee" if you wing it at the right velocity.
 
 ## Why Go?
 
-"Where are the channels and goroutines and concurrency?". Your butt. Next question.
+* "Where are the channels and goroutines and concurrency?". Your butt. Next question.
+* "Why is there so much code?". What if I stop reading this code for a week? 
