@@ -12,51 +12,79 @@ import (
 )
 
 const (
-	defaultImage       = "docker.io/library/alpine"
-	defaultImageName   = "alpine"
-	defaultInitCommand = "magicland.init"
-	appRoot            = "/app"
+	defaultImage     = "docker.io/library/alpine"
+	defaultImageName = "alpine"
+
+	appRoot = "/app"
 )
 
-func buildContainer(rtConfig RuntimeConfiguration) (context.Context, container.ContainerCreateCreatedBody, error) {
-	var newContainer container.ContainerCreateCreatedBody
-	ctx := context.Background()
-	cli, err := client.NewEnvClient()
-	if err != nil {
+var defaultEntryCommand = []string{"magicland.init"}
 
-		return ctx, newContainer, err
+// RunnableContainer is a built container awaiting execution
+// on a context
+type RunnableContainer struct {
+	StagedContainer container.ContainerCreateCreatedBody
+	RuntimeConfiguration
+	DockerClient *client.Client
+}
+
+func buildContainer(rtConfig RuntimeConfiguration) (context.Context, *RunnableContainer, error) {
+	var err error
+	// Default the container entrypoint
+	if len(rtConfig.entryCommand) == 0 {
+		rtConfig.entryCommand = defaultEntryCommand
 	}
-	imageReader, err := cli.ImagePull(ctx, defaultImage, types.ImagePullOptions{})
+	runnableContainer := &RunnableContainer{
+		RuntimeConfiguration: rtConfig,
+	}
+	ctx := context.Background()
+	runnableContainer.DockerClient, err = client.NewEnvClient()
 	if err != nil {
-		return ctx, newContainer, err
+		return ctx, runnableContainer, err
+	}
+	imageReader, err := runnableContainer.DockerClient.ImagePull(
+		ctx,
+		defaultImage,
+		types.ImagePullOptions{},
+	)
+	if err != nil {
+		return ctx, runnableContainer, err
 	}
 	// Relay status output to Stdout
 	io.Copy(os.Stdout, imageReader)
 	containerConfig := &container.Config{
 		Image: defaultImageName,
-		Cmd:   []string{defaultInitCommand},
+		Cmd:   runnableContainer.RuntimeConfiguration.entryCommand,
 		Tty:   true,
 	}
 	hostConfig := &container.HostConfig{
 		Mounts: []mount.Mount{
 			mount.Mount{
 				Type:   mount.TypeBind,
-				Source: rtConfig.ServiceStageRoot,
+				Source: runnableContainer.RuntimeConfiguration.ServiceStageRoot,
 				Target: appRoot,
 			},
 		},
 	}
 	// Create a container with no host or network configuration
-	newContainer, err = cli.ContainerCreate(
+	runnableContainer.StagedContainer, err = runnableContainer.DockerClient.ContainerCreate(
 		ctx,
 		containerConfig,
 		hostConfig, // Host config
 		nil,        // no Network config
-		rtConfig.ServiceName)
+		runnableContainer.RuntimeConfiguration.ServiceName)
 
 	if err != nil {
-		return ctx, newContainer, err
+		return ctx, runnableContainer, err
 	}
 
-	return ctx, newContainer, nil
+	return ctx, runnableContainer, nil
+}
+
+func (this RunnableContainer) Remove(ctx context.Context) error {
+	return this.DockerClient.ContainerRemove(
+		ctx,
+		this.StagedContainer.ID,
+		types.ContainerRemoveOptions{},
+	)
 }

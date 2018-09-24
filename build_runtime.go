@@ -32,7 +32,8 @@ type RuntimeConfiguration struct {
 	CORSHandler            string // Function definition in JS
 	ServiceName            string // Magicland service name
 	ServiceStageRoot       string
-	ServiceStartedNotifier string // Function definition in JS
+	ServiceStartedNotifier string   // Function definition in JS
+	entryCommand           []string // Command to run on container execution
 }
 
 func newRuntimeConfiguration(host string, port int, gitConfig GitConfiguration) RuntimeConfiguration {
