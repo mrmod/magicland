@@ -7,27 +7,28 @@ import (
 	"testing"
 )
 
-var serviceStageRoot = "/tmp/testService/stage"
-
 func init() {
-
-	_ = os.RemoveAll("/tmp/testService")
+	serviceStageRoot := "/tmp/testServiceName/stage"
+	serviceName := "testServiceName"
+	_ = os.RemoveAll("/tmp/testServiceName")
 
 	if err := os.MkdirAll(serviceStageRoot, 0755); err != nil {
 		fmt.Println("Failed to create", serviceStageRoot, ":", err)
 	}
+	if yes, containerID := isRunning(serviceName); yes {
+		if err := terminate(containerID); err != nil {
+			panic(fmt.Sprintf("Failed to terminate %s, %v\n", containerID, err))
+		}
+	}
 }
 
 func TestBuildContainer(t *testing.T) {
+	serviceStageRoot := "/tmp/testService/stage"
 	rtConfig := RuntimeConfiguration{
 		ServiceName:      "testService",
 		ServiceStageRoot: serviceStageRoot,
 	}
-	if yes, containerID := isRunning(rtConfig.ServiceName); yes {
-		if err := terminate(containerID); err != nil {
-			t.Fatalf("Failed to terminate %s, %v\n", containerID, err)
-		}
-	}
+
 	ctx, runnableContainer, err := buildContainer(rtConfig)
 	defer func() {
 		_ = runnableContainer.Remove(ctx)
