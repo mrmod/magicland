@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"html/template"
+	"text/template"
 )
 
 var (
@@ -60,16 +60,32 @@ func buildRuntime(host string, port int, gitConfig GitConfiguration) error {
 func buildExpressConfiguration(rtConfig RuntimeConfiguration) string {
 	// TODO: Cors for public DNS configuration
 	rawTemplate := `
-const express = require('express')
+const app = require('express')()
 const {handle} = require('./index')
 // CORS Handler
 {{.CORSHandler}}
 // ServiceStartedNotifier
 {{.ServiceStartedNotifier}}
-const app = express()
 const port = {{.Port}}
-app.all("/", handle)
-app.listen(port, notifyServiceStarted({{.Port}}, {{.Host}}, {{.ServiceName}}))
+const host = '{{.Host}}'
+const serviceName = '{{.ServiceName}}'
+const terminator = (ec) => {
+	// 0 is the same as null/undefined
+	if (ec) {
+		process.exit(ec)
+	}
+	process.exit(0)
+}
+app.all("/", (req, res) => {
+	try {
+		handle(req, res, terminator)
+	} catch(e) {
+		console.log(e)
+		terminator(1)
+	}
+	terminator(0)
+})
+app.listen(port, notifyServiceStarted(port, host, serviceName))
 `
 
 	t, err := template.New("serviceHandler").Parse(rawTemplate)
