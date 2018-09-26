@@ -16,8 +16,8 @@ I love serverless compute concepts like Google's cloud functions and AWS's Lamda
 * Clone begins
 * A list of ports unused on the machine IP is consulted and the first free is selected
 * A docker Aspen container is stood up in 0.1 CPU slice and 128 MB memory
-* The container is started with an entrypoint of `magicland.init`
-* Magicland init has an overlay of `/App` with the cloned repo
+* The container is started with an entrypoint of `node /app/magicland.serviceName.js`
+* Magicland init has an overlay of `/app` with the cloned repo
 * Magicland init does `yarn install` if `package.json` is present
 * Magicland init then executes `node magicland.js`
 * An ExpressJS instance is drawn with a single route with `index.js.handle` as the handler
@@ -35,6 +35,18 @@ Mesos, ECS, Kubernoodle-salad; all fine at scheduling services. This is a "for f
 * Must be free/nearly free (eg: EC2 T1-micro)
 * Must work in the development environment with only Docker and an internet connection
 * Must consider Memory saturated when 96 MB remain on a system (62 MB + WTF space)
+
+## TODO
+
+* Properly create the `/app` `magicland.serviceName.js` content
+* Ensure `node` is somehwere in the container
+* Ensure `express` is available to `magicland.serviceName.js` outside of the customer's space
+* Wire up the Go HTTP handlers sensibly
+* GZ the container `/app` after building the container entry-point as `serviceName.HEAD` and store it somewhere
+
+For the time being, the Github Webhook should handle the entire stand-up. Another request handler will need to listen for public side service requests, pull the GZ, and stand it up in a container somewhere.
+
+Version-rollback races are going to be a thing as well as in-flight bugs. The project accepts these for now.
 
 ## Testing
 
