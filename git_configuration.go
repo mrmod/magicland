@@ -10,6 +10,7 @@ type GitConfiguration struct {
 	ServiceName   string
 }
 
+// NewGitConfiguration Creates a new git configuration for a service
 func NewGitConfiguration(user, branch, url, service string) GitConfiguration {
 	return GitConfiguration{
 		User:          user,
