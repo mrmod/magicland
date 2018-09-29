@@ -8,6 +8,12 @@
   version = "v0.4.11"
 
 [[projects]]
+  name = "github.com/StackExchange/wmi"
+  packages = ["."]
+  revision = "5d049714c4a64225c3c79a7cf7d02f7fb5b96338"
+  version = "1.0.0"
+
+[[projects]]
   name = "github.com/aws/aws-sdk-go"
   packages = [
     "aws",
@@ -111,6 +117,15 @@
   version = "v1.38.2"
 
 [[projects]]
+  name = "github.com/go-ole/go-ole"
+  packages = [
+    ".",
+    "oleutil"
+  ]
+  revision = "a41e3c4b706f6ae8dfbff342b06e40fa4d2d0506"
+  version = "v1.2.1"
+
+[[projects]]
   name = "github.com/go-redis/redis"
   packages = [
     ".",
@@ -167,6 +182,15 @@
   version = "v1.0.0"
 
 [[projects]]
+  name = "github.com/shirou/gopsutil"
+  packages = [
+    "internal/common",
+    "mem"
+  ]
+  revision = "8048a2e9c5773235122027dd585cf821b2af1249"
+  version = "v2.18.07"
+
+[[projects]]
   name = "github.com/src-d/gcfg"
   packages = [
     ".",
@@ -220,7 +244,10 @@
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
-  packages = ["windows"]
+  packages = [
+    "unix",
+    "windows"
+  ]
   revision = "d641721ec2dead6fe5ca284096fe4b1fcd49e427"
 
 [[projects]]
@@ -304,6 +331,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "0a54b1d18e83cd60d076afa81522ccca97f756b5ebe3ce2bb2caeaedd0c0045c"
+  inputs-digest = "b5c3f75cdc0375bffe9f5d7a143a06cb1a3a785762dd4da79a5a1b7477e9442f"
   solver-name = "gps-cdcl"
   solver-version = 1
