@@ -10,7 +10,7 @@ import (
 )
 
 func TestBuildExpressConfiguration(t *testing.T) {
-	serviceName := "testService"
+	serviceName := "testServiceName"
 
 	gitConfig := GitConfiguration{ServiceName: serviceName}
 	rtConfig := newRuntimeConfiguration("host", 8000, gitConfig)
@@ -32,7 +32,7 @@ func TestBuildExpressConfiguration(t *testing.T) {
 
 func TestRuntimeViability(t *testing.T) {
 	// Create a fake app to run in the common UTS
-	serviceName := "testService"
+	serviceName := "testServiceName"
 	app := "node/runtime-viability-test.js"
 	gitConfig := GitConfiguration{ServiceName: serviceName}
 	rtConfig := newRuntimeConfiguration("host01.local", 8000, gitConfig)

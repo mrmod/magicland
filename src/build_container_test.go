@@ -25,9 +25,9 @@ func init() {
 }
 
 func TestBuildContainer(t *testing.T) {
-	serviceStageRoot := "/tmp/testService/stage"
+	serviceStageRoot := "/tmp/testServiceName/stage"
 	rtConfig := RuntimeConfiguration{
-		ServiceName:      "testService",
+		ServiceName:      "testServiceName",
 		ServiceStageRoot: serviceStageRoot,
 	}
 

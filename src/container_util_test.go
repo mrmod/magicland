@@ -4,7 +4,7 @@ import "testing"
 
 func TestIsRunning(t *testing.T) {
 	// Explosion test
-	yes, containerID := isRunning("testService")
+	yes, containerID := isRunning("testServiceName")
 	_ = yes
 	_ = containerID
 }

@@ -43,7 +43,7 @@ func TestStageContainer(t *testing.T) {
 }
 
 func TestRunContainer(t *testing.T) {
-	serviceStageRoot := "/tmp/testService/stage"
+	serviceStageRoot := "/tmp/testServiceName/stage"
 	ctx := context.Background()
 	rtConfig := RuntimeConfiguration{
 		ServiceName:      "testServiceName",
