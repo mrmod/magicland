@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	defaultImage     = "docker.io/library/alpine"
-	defaultImageName = "alpine"
+	defaultImage     = "docker.io/library/node:8"
+	defaultImageName = "node:8"
 
 	appRoot = "/app"
 )
