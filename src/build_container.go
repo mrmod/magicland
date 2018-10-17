@@ -103,10 +103,10 @@ func buildContainer(ctx context.Context, rtConfig RuntimeConfiguration) (*Runnab
 }
 
 // Remove Remove a container
-func (this RunnableContainer) Remove(ctx context.Context) error {
-	return this.DockerClient.ContainerRemove(
+func (container RunnableContainer) Remove(ctx context.Context) error {
+	return container.DockerClient.ContainerRemove(
 		ctx,
-		this.StagedContainer.ID,
+		container.StagedContainer.ID,
 		types.ContainerRemoveOptions{},
 	)
 }
