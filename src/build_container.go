@@ -49,7 +49,6 @@ func stageContainerApp(app appRuntime) error {
 	)
 }
 
-// TODO: Should pass in our own context
 func buildContainer(ctx context.Context, rtConfig RuntimeConfiguration) (*RunnableContainer, error) {
 	var err error
 	// Default the container entrypoint
